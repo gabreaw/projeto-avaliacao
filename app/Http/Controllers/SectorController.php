@@ -47,7 +47,7 @@ class SectorController extends Controller
             'sector' => ['required', 'min:1', 'unique:sectors']
             ]);
         Sector::create($request->all());
-        $request->session()->flash('success.message', 'Formulário enviado com Súcesso!!');
+        $request->session()->flash('success.message', 'Formulário enviado com Sucesso!!');
         return to_route('sector.index')->with('success.message');
     }
 
