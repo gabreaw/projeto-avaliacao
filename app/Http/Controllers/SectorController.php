@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SectorStorePostRequest;
 use App\Models\Evaluation;
 use App\Models\Sector;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class SectorController extends Controller
@@ -41,45 +43,10 @@ class SectorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SectorStorePostRequest $request): RedirectResponse
     {
-        $request->validate([
-            'sector' => ['required', 'min:1', 'unique:sectors']
-            ]);
+        $validated = $request->validated();
         Sector::create($request->all());
-        $request->session()->flash('success.message', 'Formulário enviado com Sucesso!!');
-        return to_route('sector.index')->with('success.message');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return to_route('sector.index');
     }
 }
